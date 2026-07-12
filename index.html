@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>킬러들의 쇼핑몰2</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background:#000;
+display:flex;
+justify-content:center;
+}
+
+.wrapper{
+position:relative;
+max-width:828px;
+width:100%;
+}
+
+.poster{
+width:100%;
+display:block;
+}
+
+.copy-btn{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+bottom:18.5%;
+width:50%;
+height:4.5%;
+background:transparent;
+border:none;
+cursor:pointer;
+}
+
+.toast{
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:#e60012;
+color:#fff;
+padding:14px 24px;
+border-radius:999px;
+font-weight:bold;
+opacity:0;
+transition:.3s;
+}
+
+.toast.show{
+opacity:1;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+.png" class="poster">
+
+<button class="copy-btn"
+onclick="copyHashtag()">
+</button>
+
+</div>
+
+<div id="toast" class="toast">
+해시태그가 복사되었습니다!
+</div>
+
+<script>
+function copyHashtag(){
+
+const hashtags = `#킬러들의쇼핑몰2
+#머더헬프강남점오픈
+#디즈니플러스
+@disneypluskr`;
+
+navigator.clipboard.writeText(hashtags);
+
+const toast = document.getElementById('toast');
+
+toast.classList.add('show');
+
+setTimeout(()=>{
+toast.classList.remove('show');
+},2000);
+
+}
+</script>
+
+</body>
+</html>
