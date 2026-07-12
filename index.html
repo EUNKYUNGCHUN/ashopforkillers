@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>킬러들의 쇼핑몰2 SNS 이벤트</title>
+<title><킬러들의 쇼핑몰 시즌2> SNS 이벤트</title>
 
 <style>
 * {
@@ -30,24 +30,13 @@ body {
   width: 100%;
   max-width: 828px;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .poster {
   width: 100%;
+  height: auto;
   display: block;
-}
-
-.copy-button {
-  position: absolute;
-  left: 50%;
-  bottom: 18.5%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 4.5%;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
 }
 
 .toast {
@@ -59,12 +48,12 @@ body {
   color: #fff;
   padding: 14px 24px;
   border-radius: 999px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
-  z-index: 999;
+  z-index: 9999;
   white-space: nowrap;
 }
 
@@ -77,12 +66,8 @@ body {
 
 <body>
 
-<div class="wrapper">
-
-  <img src="./hashtag.png" class="poster" alt="<킬러들의 쇼핑몰 시즌2> 머더헬프 강남점">
-
-)" aria-label="해시태그 복사하기"></button>
-
+<div class="wrapper" onclick="copyHashtag()">
+  ./hashtag.png
 </div>
 
 <div id="toast" class="toast">
@@ -96,19 +81,44 @@ function copyHashtag() {
 #디즈니플러스
 @disneypluskr`;
 
-  navigator.clipboard.writeText(hashtags).then(() => {
-    const toast = document.getElementById("toast");
-    toast.classList.add("show");
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(hashtags)
+      .then(showToast)
+      .catch(() => fallbackCopy(hashtags));
+  } else {
+    fallbackCopy(hashtags);
+  }
+}
 
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2000);
-  }).catch(() => {
-    alert("복사에 실패했습니다. 다시 시도해 주세요.");
-  });
+function fallbackCopy(text) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  textarea.style.top = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand("copy");
+    showToast();
+  } catch (err) {
+    alert("복사에 실패했습니다. 해시태그를 직접 복사해 주세요.");
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function showToast() {
+  const toast = document.getElementById("toast");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
 }
 </script>
 
 </body>
 </html>
-``
