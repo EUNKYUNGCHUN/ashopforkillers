@@ -85,7 +85,9 @@ function copyHashtag() {
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(hashtags)
       .then(showToast)
-      .catch(() => fallbackCopy(hashtags));
+      .catch(function() {
+        fallbackCopy(hashtags);
+      });
   } else {
     fallbackCopy(hashtags);
   }
@@ -115,7 +117,7 @@ function showToast() {
   const toast = document.getElementById("toast");
   toast.classList.add("show");
 
-  setTimeout(() => {
+  setTimeout(function() {
     toast.classList.remove("show");
   }, 2000);
 }
