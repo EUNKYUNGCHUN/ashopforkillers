@@ -3,56 +3,74 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>킬러들의 쇼핑몰2</title>
+
+<title>킬러들의 쇼핑몰2 SNS 이벤트</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
-body{
-background:#000;
-display:flex;
-justify-content:center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.wrapper{
-position:relative;
-max-width:828px;
-width:100%;
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: #000;
 }
 
-.poster{
-width:100%;
-display:block;
+body {
+  display: flex;
+  justify-content: center;
+  font-family: Arial, sans-serif;
 }
 
-.copy-btn{
-position:absolute;
-left:50%;
-transform:translateX(-50%);
-bottom:18.5%;
-width:50%;
-height:4.5%;
-background:transparent;
-border:none;
-cursor:pointer;
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 828px;
+  margin: 0 auto;
 }
 
-.toast{
-position:fixed;
-bottom:30px;
-left:50%;
-transform:translateX(-50%);
-background:#e60012;
-color:#fff;
-padding:14px 24px;
-border-radius:999px;
-font-weight:bold;
-opacity:0;
-transition:.3s;
+.poster {
+  width: 100%;
+  display: block;
 }
 
-.toast.show{
-opacity:1;
+.copy-button {
+  position: absolute;
+  left: 50%;
+  bottom: 18.7%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 4.2%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  background: #e60012;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
 }
 </style>
 </head>
@@ -60,37 +78,32 @@ opacity:1;
 <body>
 
 <div class="wrapper">
+  ./hashtag.png
 
-.png" class="poster">
-
-<button class="copy-btn"
-onclick="copyHashtag()">
-</button>
-
+  <button class="copy-button" onclick="copyHashtag()" aria-label="해시태그 복사하기"></button>
 </div>
 
 <div id="toast" class="toast">
-해시태그가 복사되었습니다!
+  해시태그가 복사되었습니다!
 </div>
 
 <script>
-function copyHashtag(){
-
-const hashtags = `#킬러들의쇼핑몰2
+function copyHashtag() {
+  const hashtags = `#킬러들의쇼핑몰2
 #머더헬프강남점오픈
 #디즈니플러스
 @disneypluskr`;
 
-navigator.clipboard.writeText(hashtags);
+  navigator.clipboard.writeText(hashtags).then(() => {
+    const toast = document.getElementById("toast");
+    toast.classList.add("show");
 
-const toast = document.getElementById('toast');
-
-toast.classList.add('show');
-
-setTimeout(()=>{
-toast.classList.remove('show');
-},2000);
-
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2000);
+  }).catch(() => {
+    alert("복사에 실패했습니다. 다시 시도해 주세요.");
+  });
 }
 </script>
 
